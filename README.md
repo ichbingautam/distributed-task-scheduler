@@ -18,6 +18,19 @@ A high-performance, distributed task scheduler written in Go, designed to handle
 - **Worker Pool** - Configurable concurrent workers
 - **Graceful Shutdown** - Proper cleanup of resources on termination
 
+## Architecture
+
+```mermaid
+graph TD
+    A[Client] --> B(Scheduler API)
+    B --> C[Task Queue]
+    C --> D[Redis Storage]
+    D --> E[Executor]
+    E --> F[(Metrics)]
+    E --> G[Worker Pool]
+    G --> H[(External Services)]
+
+```
 ## Build and Run
 
 ### Prerequisites
@@ -27,6 +40,7 @@ A high-performance, distributed task scheduler written in Go, designed to handle
 
 ### Build from Source
 
+```bash
 # Clone repository
 git clone https://github.com/ichbingautam/distributed-task-scheduler.git
 cd distributed-task-scheduler
@@ -39,15 +53,3 @@ go build -o scheduler ./cmd/scheduler/main.go
 
 # Run with default configuration
 ./scheduler
-
-## Architecture
-
-```mermaid
-graph TD
-    A[Client] --> B(Scheduler API)
-    B --> C[Task Queue]
-    C --> D[Redis Storage]
-    D --> E[Executor]
-    E --> F[(Metrics)]
-    E --> G[Worker Pool]
-    G --> H[(External Services)]
